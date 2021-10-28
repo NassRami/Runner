@@ -13,17 +13,17 @@ public class Camera {
     public void move(float x , float y)
     {xOffset+=x;
      yOffset+=y;
-     GameScene.Fond1.se
+
     }
 
     public double getcX()
     {
-        return x;
+        return xOffset;
     }
 
     public double getcY()
     {
-        return y ;
+        return yOffset ;
     }
 
 
