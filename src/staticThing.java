@@ -1,10 +1,8 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+//class pour les backgrounds
 
-// we’ll use to display static
-//element (background or number of life). This class is defined
-//by two double (x,y), one ImageView.
 public class staticThing {
     private Image imgFond1 ;
     private ImageView imgViewFond1 ;
@@ -16,7 +14,7 @@ public class staticThing {
     private double posX;
 
 
-    public staticThing( String filename, double largeur, double hauteur ,double posX )
+    public staticThing( String filename, double largeur, double hauteur  )
     {
         this.largeur= largeur ;
         this.hauteur= hauteur ;
@@ -25,16 +23,24 @@ public class staticThing {
 
         imgFond1 = new Image(filename,largeur,hauteur,true,true);
         imgViewFond1 = new ImageView(imgFond1);
-        imgViewFond1.setX(posX);
+
 
 
 
     }
+    public double getLargeur() {
+        return largeur;
+    }
+    public double getHauteur() {
+        return hauteur;
+    }
 
-    public  ImageView getThing(){return imgViewFond1;}
+    public  ImageView getBackView(){return imgViewFond1;}
 
     public void deplacement(){
         posX--;
         this.imgViewFond1.setX(posX);
     }
+
+
 }

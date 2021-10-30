@@ -11,10 +11,12 @@ public class Camera {
     private final double k=1;
     private final double f=1.2;
 
-    public Camera(double x , double y )
+    public Camera(double x , double y,Heros hero )
     {
         this.xOffset=x;
         this.yOffset=y;
+        this.monHeros=hero;
+
     }
 
 

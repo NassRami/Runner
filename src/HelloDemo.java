@@ -17,13 +17,10 @@ public class HelloDemo extends Application{
         public void start(Stage primaryStage){
             primaryStage.setTitle("Demo");
             Group root = new Group ();
-            SCENERY=new GameScene(root,800,400);
+            SCENERY=new GameScene(root);
 
             primaryStage.setScene(SCENERY);
 
-
-            root.getChildren().add(SCENERY.getThing());
-            root.getChildren().add(SCENERY.getThing2());
 
 
 

@@ -1,4 +1,5 @@
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,79 +11,50 @@ import java.util.concurrent.Delayed;
 public class GameScene extends Scene
 {
 
-    public static staticThing Fond1;
-    public static staticThing Fond2;
-    public static staticThing Mario;
+    public static staticThing leftBack;
+    public static staticThing rightBack;
+    private Camera camera;
 
-    private int largeur=0;
-    private int hauteur=0;
+
 
     private double dX;
 
     private Heros hero=null;
+    private long lastTime=0;
 
-    public GameScene(Group root, int largeur, int hauteur)
+    public GameScene(Group root)
     {
-        super(root,largeur,hauteur);
-
-        this.largeur=largeur;
-        this.hauteur=hauteur;
-
-        Fond1= new staticThing("desert.png",largeur,hauteur,0);
-        Fond2= new staticThing("desert.png",largeur,hauteur,800);
+        super(root);
 
 
 
+        leftBack = new staticThing("desert.png",800,400);
+        rightBack = new staticThing("desert.png",800,400);
+        hero=new Heros(1350,250,0,"heros.png");
+        hero.getAnimatedView().setY(200);
+
+        camera = new Camera(1200,0,hero);
+
+        root.getChildren().add(leftBack.getBackView());
+        root.getChildren().add(rightBack.getBackView());
+        root.getChildren().add(hero.getAnimatedView());
 
 
-
-
-
-        hero = new Heros(100,250,"heros.png");
-        /*AnimationTimer tm = new TimerMethod();
-        tm.start();**/
+        AnimationTimer tm = new TimerMethod();
+        tm.start();
 
     }
-
-
-
-    public ImageView getThing()
-    {
-        return Fond1.getThing();
-
-    }
-
-
-    public ImageView getThing2()
-    {
-        return Fond2.getThing();
-
-    }
-
-
-
-
-
-
-
-
-
 
 
 
 
     private class TimerMethod extends AnimationTimer {
-        private int x=0;
-        private int move=0;
         public void handle(long now) {
+            double elapsedTime=(now-lastTime)/1000000000;
+            hero.update(now);
+            camera.update(elapsedTime);
 
-        Fond1.deplacement();
-        Fond2.deplacement();
-
-
-
-
-
+            lastTime=now;
 
 
          System.out.println("ok!");
