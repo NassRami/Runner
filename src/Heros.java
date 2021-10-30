@@ -11,8 +11,8 @@ import javafx.scene.image.ImageView;
 
 public class Heros extends AnimatedThing
 {
-    public Heros (double x, double y, double dt, String filename) {
-        super(x, y, dt, filename);
+    public Heros (double x, double y, String filename) {
+        super(x, y, filename);
     }
 
 

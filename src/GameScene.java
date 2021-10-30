@@ -30,7 +30,7 @@ public class GameScene extends Scene
 
         leftBack = new staticThing("desert.png",800,400);
         rightBack = new staticThing("desert.png",800,400);
-        hero=new Heros(1350,250,0,"heros.png");
+        hero=new Heros(1350,250,"heros.png");
         hero.getAnimatedView().setY(200);
 
         camera = new Camera(1200,0,hero);

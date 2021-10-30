@@ -6,20 +6,19 @@ public class AnimatedThing {
 
     private double x;
     private double y;
-    private double dt;
+
     private ImageView animatedView;
     private int index;
     private int offs;
 
 
-    public AnimatedThing(double x, double y, double dt, String filename) {
+    public AnimatedThing(double x, double y, String filename) {
 
         this.x = x;
         this.y = y;
         this.animatedView =new ImageView(new Image(filename));
         animatedView.setViewport(new Rectangle2D(20,2,60,97));
 
-        this.dt = dt;
 
 
         offs = 84;
