@@ -19,28 +19,10 @@ public class HelloDemo extends Application{
             Group root = new Group ();
             SCENERY=new GameScene(root);
 
+
             primaryStage.setScene(SCENERY);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             primaryStage.show();
-
-
-
-
-
-
 
 
         }

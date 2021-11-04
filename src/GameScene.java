@@ -14,13 +14,15 @@ public class GameScene extends Scene
     public static staticThing leftBack;
     public static staticThing rightBack;
     private Camera camera;
+    private long lastTime=0;
+    private static Objet tuyau;
 
 
 
     private double dX;
 
-    private Heros hero=null;
-    private long lastTime=0;
+    private Heros hero;
+
 
     public GameScene(Group root)
     {
@@ -30,34 +32,75 @@ public class GameScene extends Scene
 
         leftBack = new staticThing("desert.png",800,400);
         rightBack = new staticThing("desert.png",800,400);
-        hero=new Heros(1350,250,"heros.png");
-        hero.getAnimatedView().setY(200);
 
-        camera = new Camera(1200,0,hero);
+
+        hero=new Heros(0,250,"heros.png");
+        tuyau= new Objet("tuyauRouge.png");
+
+        camera = new Camera(0,0,hero);
+
+
+
+
+
 
         root.getChildren().add(leftBack.getBackView());
         root.getChildren().add(rightBack.getBackView());
         root.getChildren().add(hero.getAnimatedView());
+        root.getChildren().add(tuyau.getAnimatedObjet());
 
 
-        AnimationTimer tm = new TimerMethod();
-        tm.start();
+
+
+
+
+
+
+
+
+
+        timer.start();
+
 
     }
 
 
-
-
-    private class TimerMethod extends AnimationTimer {
-        public void handle(long now) {
-            double elapsedTime=(now-lastTime)/1000000000;
-            hero.update(now);
+    AnimationTimer timer = new AnimationTimer() {
+        @Override
+        public void handle(long time) {
+            double elapsedTime =( (time - lastTime) / 10000000);
+            if(elapsedTime>100) elapsedTime=0;
+            hero.update(time,elapsedTime);
             camera.update(elapsedTime);
+            lastTime = time;
+            render();
+            //System.out.println("elaps= " + elapsedTime);
+            //System.out.println("xPers= " + hero.getX());
+            //System.out.println("camera= " + camera.getcX());
 
-            lastTime=now;
 
 
-         System.out.println("ok!");
+        }
+    };
+
+        void render(){
+
+            int offset = (int) (camera.getcX()%leftBack.getLargeur());
+            leftBack.getBackView().setViewport(new Rectangle2D(offset, 0, leftBack.getLargeur()-offset, leftBack.getHauteur()));
+            rightBack.getBackView().setX(rightBack.getLargeur()-offset);
+            //hearts.getBackView().setViewport(new Rectangle2D(0,0 , (numberOfLives*27)+1,27 ));
+            //hearts.getBackView().setX();
+            hero.getAnimatedView().setX(hero.getX()-camera.getcX()+100);
+            hero.getAnimatedView().setY(hero.getY()-camera.getcY());
+
+            tuyau.getAnimatedObjet().setX(700-offset);
+            tuyau.getAnimatedObjet().setY(hero.getY()-camera.getcY()+25);
+            System.out.println("offset="+offset);
+
+            if(offset>=523){timer.stop();}
+
+
+
 
         }
     }
@@ -78,4 +121,4 @@ public class GameScene extends Scene
 
 
 
-}
+

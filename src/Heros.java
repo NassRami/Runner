@@ -15,5 +15,15 @@ public class Heros extends AnimatedThing
         super(x, y, filename);
     }
 
+    void update(long time,double time2){
+        this.axPers+=(0.000001*time2);
+        this.vxPers+=this.axPers*time2;
+        this.xPers+=vxPers*time2;
+
+        indexPers= (int) (((time/100000000))%6);//duree entre 2 frames
+        animatedView.setViewport(new Rectangle2D(4+indexPers*84,2,80,97));
+
+    }
+
 
 }

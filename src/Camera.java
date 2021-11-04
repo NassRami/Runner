@@ -1,30 +1,37 @@
 public class Camera {
-    private double xOffset;
-    private double yOffset;
-    private double vx ;
+    private double xCam;
+    private double yCam;
+    private double vxCam ;
 
 
-    private double ax;
+    private double axCam;
 
     private Heros monHeros;
 
     private final double k=1;
-    private final double f=1.2;
+
+    public void setxCam(double xCam) {
+        this.xCam = xCam;
+    }
+
+    private final double f=1;
 
     public Camera(double x , double y,Heros hero )
     {
-        this.xOffset=x;
-        this.yOffset=y;
+        this.xCam=x;
+        this.yCam=y;
         this.monHeros=hero;
+        vxCam=0;
+        axCam=0;
 
     }
 
 
     public void update(double time)
     {
-        ax=(monHeros.getX()-xOffset)*k-(f*vx);
-        vx=vx+ax*time;
-        xOffset=xOffset+vx*time;
+        axCam = (monHeros.getX() - xCam) * k -(f*vxCam);
+        vxCam=vxCam+axCam*time;
+        xCam=xCam+vxCam*time;
 
     }
 
@@ -32,13 +39,16 @@ public class Camera {
 
     public double getcX()
     {
-        return xOffset;
+        return xCam;
     }
 
     public double getcY()
     {
-        return yOffset ;
+        return yCam ;
     }
+
+    public double getcAX(){ return axCam;}
+    public double getcvX(){ return vxCam;}
 
 
 }

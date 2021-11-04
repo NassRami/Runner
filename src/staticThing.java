@@ -37,10 +37,6 @@ public class staticThing {
 
     public  ImageView getBackView(){return imgViewFond1;}
 
-    public void deplacement(){
-        posX--;
-        this.imgViewFond1.setX(posX);
-    }
 
 
 }
