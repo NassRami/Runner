@@ -1,12 +1,16 @@
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
-import java.util.concurrent.Delayed;
+import java.awt.*;
 
 public class GameScene extends Scene
 {
@@ -16,6 +20,7 @@ public class GameScene extends Scene
     private Camera camera;
     private long lastTime=0;
     private static Objet tuyau;
+    private Rectangle GameOver ;
 
 
 
@@ -38,6 +43,7 @@ public class GameScene extends Scene
         tuyau= new Objet("tuyauRouge.png");
 
         camera = new Camera(0,0,hero);
+        GameOver= new Rectangle();
 
 
 
@@ -49,15 +55,7 @@ public class GameScene extends Scene
         root.getChildren().add(hero.getAnimatedView());
         root.getChildren().add(tuyau.getAnimatedObjet());
 
-
-
-
-
-
-
-
-
-
+        root.getChildren().add(GameOver);
 
         timer.start();
 
@@ -74,10 +72,6 @@ public class GameScene extends Scene
             camera.update(elapsedTime);
             lastTime = time;
             render();
-            //System.out.println("elaps= " + elapsedTime);
-            //System.out.println("xPers= " + hero.getX());
-            //System.out.println("camera= " + camera.getcX());
-
 
 
         }
@@ -94,11 +88,32 @@ public class GameScene extends Scene
             hero.getAnimatedView().setY(hero.getY()-camera.getcY());
 
             tuyau.getAnimatedObjet().setX(700-offset);
-            tuyau.getAnimatedObjet().setY(hero.getY()-camera.getcY()+25);
-            System.out.println("offset="+offset);
+            tuyau.getAnimatedObjet().setY(275);
 
-            if(offset>=523){timer.stop();}
+            System.out.println("yPers="+hero.getY());
+            System.out.println("PersoVy="+hero.getVy());
 
+
+
+
+
+            this.setOnKeyPressed(ev -> {
+                if (ev.getCode() == KeyCode.SPACE) {
+                    System.out.println("JUMP");
+                    hero.jump();
+                }
+            });
+
+            /*if(offset>=1){timer.stop();
+
+                GameOver.setX(200);
+                GameOver.setY(100);
+                GameOver.setWidth(400);
+                GameOver.setHeight(100);
+                GameOver.setFill(Color.RED);
+
+            }
+*/
 
 
 
