@@ -11,6 +11,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameScene extends Scene
 {
@@ -19,8 +20,11 @@ public class GameScene extends Scene
     public static staticThing rightBack;
     private Camera camera;
     private long lastTime=0;
-    private static Objet tuyau;
+    private static Objet tuyau1;
+    private static Objet tuyau2;
+    private static Objet tuyau3;
     private Rectangle GameOver ;
+    private ArrayList<Objet> tabObjets;
 
 
 
@@ -40,7 +44,15 @@ public class GameScene extends Scene
 
 
         hero=new Heros(0,250,"heros.png");
-        tuyau= new Objet("tuyauRouge.png");
+        tuyau1= new Objet(500,275,"tuyauRouge.png");
+        tuyau2= new Objet(100,275,"tuyauRouge.png");
+
+
+        tabObjets=new ArrayList<Objet>();
+        this.tabObjets.add(tuyau1);
+        this.tabObjets.add(tuyau2);
+
+
 
         camera = new Camera(0,0,hero);
         GameOver= new Rectangle();
@@ -53,7 +65,12 @@ public class GameScene extends Scene
         root.getChildren().add(leftBack.getBackView());
         root.getChildren().add(rightBack.getBackView());
         root.getChildren().add(hero.getAnimatedView());
-        root.getChildren().add(tuyau.getAnimatedObjet());
+        for(Objet objet : tabObjets)
+        {
+            root.getChildren().add(objet.getAnimatedObjet());
+        }
+
+
 
         root.getChildren().add(GameOver);
 
@@ -84,14 +101,19 @@ public class GameScene extends Scene
             rightBack.getBackView().setX(rightBack.getLargeur()-offset);
             //hearts.getBackView().setViewport(new Rectangle2D(0,0 , (numberOfLives*27)+1,27 ));
             //hearts.getBackView().setX();
-            hero.getAnimatedView().setX(hero.getX()-camera.getcX()+100);
+            hero.getAnimatedView().setX(hero.getX()-camera.getcX());
             hero.getAnimatedView().setY(hero.getY()-camera.getcY());
 
-            tuyau.getAnimatedObjet().setX(700-offset);
-            tuyau.getAnimatedObjet().setY(275);
+            for(Objet objet : tabObjets)
+            {
+                objet.update(offset);
+            }
+            //System.out.println("yPers="+(hero.getY()+99));
+            //System.out.println("tuyau="+(tuyau.getX()-offset));
+            System.out.println("xPers="+(hero.getX()+80));
 
-            System.out.println("yPers="+hero.getY());
-            System.out.println("PersoVy="+hero.getVy());
+            //System.out.println("tuyau="+tuyau.getX());
+
 
 
 
@@ -99,7 +121,7 @@ public class GameScene extends Scene
 
             this.setOnKeyPressed(ev -> {
                 if (ev.getCode() == KeyCode.SPACE) {
-                    System.out.println("JUMP");
+                    System.out.println("SAUT ! ");
                     hero.jump();
                 }
             });
@@ -113,7 +135,16 @@ public class GameScene extends Scene
                 GameOver.setFill(Color.RED);
 
             }
-*/
+
+
+*/          for(Objet objet : tabObjets)
+            {
+                if(hero.contactAvant(objet)==true){
+                    System.out.println("tjrs pas");
+                    timer.stop();
+                }
+            }
+        
 
 
 

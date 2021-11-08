@@ -12,9 +12,10 @@ public class Objet {
 
 
     //constructeur
-    public Objet (String filename)
+    public Objet (int x,int y,String filename)
     {
-
+        this.x=x;
+        this.y=y;
         animatedObjet=new ImageView(new Image(filename));
         animatedObjet.setViewport(new Rectangle2D(0,0,43,65));
 
@@ -41,4 +42,10 @@ public class Objet {
     public int getX() {return x;}
 
     public int getY() {return y;}
+
+    public void update(double offset){
+        animatedObjet.setX(x-offset);
+        animatedObjet.setY(y);
+
+    }
 }
