@@ -44,13 +44,18 @@ public class GameScene extends Scene
 
 
         hero=new Heros(0,250,"heros.png");
-        tuyau1= new Objet(500,275,"tuyauRouge.png");
-        tuyau2= new Objet(100,275,"tuyauRouge.png");
+        tuyau1= new Objet(100,275,"tuyauRouge.png");
+        tuyau2= new Objet(400,275,"tuyauRouge.png");
+        tuyau3= new Objet(700,275,"tuyauRouge.png");
 
 
         tabObjets=new ArrayList<Objet>();
         this.tabObjets.add(tuyau1);
         this.tabObjets.add(tuyau2);
+        this.tabObjets.add(tuyau3);
+
+
+
 
 
 
@@ -106,11 +111,12 @@ public class GameScene extends Scene
 
             for(Objet objet : tabObjets)
             {
-                objet.update(offset);
+                objet.update(offset,hero);
             }
             //System.out.println("yPers="+(hero.getY()+99));
             //System.out.println("tuyau="+(tuyau.getX()-offset));
-            System.out.println("xPers="+(hero.getX()+80));
+            System.out.println("offset="+(offset+80));
+            System.out.println("setx="+tuyau1.getX());
 
             //System.out.println("tuyau="+tuyau.getX());
 
@@ -144,7 +150,7 @@ public class GameScene extends Scene
                     timer.stop();
                 }
             }
-        
+
 
 
 

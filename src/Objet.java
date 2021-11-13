@@ -43,9 +43,14 @@ public class Objet {
 
     public int getY() {return y;}
 
-    public void update(double offset){
+    public void update(double offset, Heros heros){
         animatedObjet.setX(x-offset);
         animatedObjet.setY(y);
+        if(heros.getX()>this.x)
+        {
+            animatedObjet.setX((800+x)-offset);
+        }
+
 
     }
 }
