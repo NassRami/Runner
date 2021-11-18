@@ -13,19 +13,14 @@ public class staticThing {
 
     private double posX;
 
-
     public staticThing( String filename, double largeur, double hauteur  )
     {
         this.largeur= largeur ;
         this.hauteur= hauteur ;
         this.posX= posX ;
 
-
         imgFond1 = new Image(filename,largeur,hauteur,true,true);
         imgViewFond1 = new ImageView(imgFond1);
-
-
-
 
     }
     public double getLargeur() {
@@ -36,7 +31,8 @@ public class staticThing {
     }
 
     public  ImageView getBackView(){return imgViewFond1;}
-
+    public void showImage(){ this.imgViewFond1.setImage(imgFond1);}
+    public void hideImage(){ this.imgViewFond1.setImage(null);}
 
 
 }

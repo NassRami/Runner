@@ -16,34 +16,37 @@ public class Heros extends AnimatedThing
     private double g=0.5;
     private double vy=0;
     private Rectangle rectangle;
-    private boolean test=false;
-    private boolean test2=false;
+    private boolean jump=false;
+    private boolean contactAvant=false;
+    private int numberContact=0;
+    private static boolean contactPiece;
 
+    //-------------------------------------- Constructor -----------------------------------------
     public Heros (double x, double y, String filename) {
         super(x, y, filename);
     }
 
-    public double getVy() {
-        return vy;
-    }
 
+    // --------------------------------- Methods -------------------------------------------------------------
+
+       //1
     void update(long time, double time2){
-        this.axPers+=(0.000001*time2);
+        this.axPers=0.005;
         this.vxPers+=this.axPers*time2;
         this.xPers+=vxPers*time2;
 
-        if(test==false || test2==true){
+        if(jump==false ){
 
         indexPers= (int) (((time/100000000))%6);//duree entre 2 frames
         animatedView.setViewport(new Rectangle2D(4+indexPers*84,2,80,99));
         rectangle=new Rectangle();
         }
-        if(vy<0)
+         if(vy<0)
         {
             animatedView.setViewport(new Rectangle2D(16,161,70,103));
         }
         else if(vy>0){animatedView.setViewport(new Rectangle2D(85,167,70,103));
-            test=false;}
+            jump=false;}
 
 
         vy+=g*time2;
@@ -53,34 +56,60 @@ public class Heros extends AnimatedThing
             yPers=250;
             vy=0;
         }
-        if (xPers>800) {
-            this.xPers = 0;
+
+
+
+    }
+
+    //2
+    public boolean jump() {
+
+          this.vy=-1.25*Math.sqrt(250*this.g);
+          return jump=true;
+    }
+
+
+    //3
+    public boolean contactAvant(Objet objet)
+    {
+        if(((this.xPers+80)<objet.getX() ) || this.xPers+80>objet.getX()+objet.getLargeur() || (this.yPers+99)<=objet.getY()+ objet.getHauteur() || this.yPers >= objet.getY()+ 65 ) {return contactAvant=false;}
+        else
+        {
+             xPers+=(objet.getLargeur()+100);
+             numberContact++;
+            return contactAvant=true;
+
         }
 
 
     }
 
-    public boolean jump() {
-
-          this.vy=-1.25*Math.sqrt(250*this.g);
-          return test=true;
+    public void setContactAvant(boolean contactAvant) {
+        this.contactAvant = contactAvant;
     }
 
-   public boolean contactAvant(Objet objet)
+    //4
+    public boolean contactPiece(Objet objet)
     {
-        if(((this.xPers+80)<objet.getX() ) || this.xPers+80>objet.getX()+43 || (this.yPers+99)<=objet.getY() || (this.yPers >= objet.getY()+65) ){return test2=false;}
-        else {return test2  =true;}
+        if((this.xPers+80)<objet.getX() || this.xPers+80>objet.getX()+objet.getLargeur() || (this.yPers+99)<=objet.getY()+ objet.getHauteur() || this.yPers >= objet.getY()+objet.getHauteur()){return contactPiece=false;}
+        else return contactPiece=true;
+    }
 
+    //------------------------------ GETTERS-------------------------------------
+    public boolean isContactPiece() {
+        return contactPiece;
+    }
+
+    public int getNumberContact() {
+        return numberContact;
+    }
+
+    public double getVy() {
+        return vy;
     }
 
 
-    /*protected boolean contactDessous(Objet objet){
-        if(this.xPers + 80 < objet.getX()  || this.xPers > objet.getX() + 43 || this.yPers + 99 < objet.getY() || this.yPers + 99 > objet.getY() ){return test2=false;}
-        else{return test2=true;}
-    }
 
-
-     */
 
 
 

@@ -12,12 +12,14 @@ public class Objet {
 
 
     //constructeur
-    public Objet (int x,int y,String filename)
+    public Objet (int x,int y,int largeur,int hauteur,String filename)
     {
         this.x=x;
         this.y=y;
+        this.largeur=largeur;
+        this.hauteur=hauteur;
         animatedObjet=new ImageView(new Image(filename));
-        animatedObjet.setViewport(new Rectangle2D(0,0,43,65));
+        animatedObjet.setViewport(new Rectangle2D(0,0,largeur,hauteur));
 
 
 
@@ -44,13 +46,13 @@ public class Objet {
     public int getY() {return y;}
 
     public void update(double offset, Heros heros){
-        animatedObjet.setX(x-offset);
+        animatedObjet.setX(x-heros.getX());
         animatedObjet.setY(y);
-        if(heros.getX()>this.x)
+        /*if(heros.getX()>this.x)
         {
             animatedObjet.setX((800+x)-offset);
         }
-
+*/
 
     }
 }

@@ -1,16 +1,8 @@
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-
-import javafx.scene.image.ImageView;
-
-import java.awt.*;
-
 
 
 public class HelloDemo extends Application{
@@ -32,6 +24,7 @@ public class HelloDemo extends Application{
             startButton.setStyle("-fx-font: 22 arial; -fx-base: #b6e7c9;");
             startButton.setLayoutX(300);
             startButton.setLayoutY(275);
+
             root2.getChildren().add(startButton);
 
 
@@ -42,8 +35,6 @@ public class HelloDemo extends Application{
             });
 
             primaryStage.setScene(welcomeScene);
-
-
 
 
             primaryStage.show();
