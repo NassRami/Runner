@@ -12,6 +12,7 @@ public class HelloDemo extends Application{
 
 
         public void start(Stage primaryStage){
+
             primaryStage.setTitle("Demo");
 
             Group root = new Group ();
@@ -22,8 +23,8 @@ public class HelloDemo extends Application{
 
             Button startButton=new Button("Start");
             startButton.setStyle("-fx-font: 22 arial; -fx-base: #b6e7c9;");
-            startButton.setLayoutX(300);
-            startButton.setLayoutY(275);
+            startButton.setLayoutX(350);
+            startButton.setLayoutY(325);
 
             root2.getChildren().add(startButton);
 

@@ -1,15 +1,5 @@
 import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
 import javafx.scene.shape.Rectangle;
-
-import javafx.scene.image.ImageView;
-
-import java.awt.*;
 
 public class Heros extends AnimatedThing
 {
@@ -17,12 +7,14 @@ public class Heros extends AnimatedThing
     private double vy=0;
     private Rectangle rectangle;
     private boolean jump=false;
-    private boolean contactAvant=false;
+    private boolean contact;
     private int numberContact=0;
-    private static boolean contactPiece;
+    private static boolean pieceContact=true;
+    private int numberContactPiece=0;
+    private double invincibility=0;
 
     //-------------------------------------- Constructor -----------------------------------------
-    public Heros (double x, double y, String filename) {
+    public Heros (int x, double y, String filename) {
         super(x, y, filename);
     }
 
@@ -31,9 +23,16 @@ public class Heros extends AnimatedThing
 
        //1
     void update(long time, double time2){
-        this.axPers=0.005;
+        this.axPers=0.015;
         this.vxPers+=this.axPers*time2;
         this.xPers+=vxPers*time2;
+
+        if(invincibility>0)
+        {
+            invincibility-=time2;
+        }
+
+
 
         if(jump==false ){
 
@@ -64,56 +63,85 @@ public class Heros extends AnimatedThing
     //2
     public boolean jump() {
 
-          this.vy=-1.25*Math.sqrt(250*this.g);
+          if(200<yPers && yPers<=250){this.vy=-1.25*Math.sqrt(250*this.g);}
           return jump=true;
     }
 
 
     //3
-    public boolean contactAvant(Objet objet)
+    public void contactAvant(Objet objet)
     {
-        if(((this.xPers+80)<objet.getX() ) || this.xPers+80>objet.getX()+objet.getLargeur() || (this.yPers+99)<=objet.getY()+ objet.getHauteur() || this.yPers >= objet.getY()+ 65 ) {return contactAvant=false;}
+        if(((this.xPers+80)<objet.getX() ) || this.xPers+80>objet.getX()+objet.getLargeur() || (this.yPers+99)<=objet.getY()+ objet.getHauteur() || this.yPers >= objet.getY()+ 65 ) { contact=false;}
         else
         {
-             xPers+=(objet.getLargeur()+100);
-             numberContact++;
-            return contactAvant=true;
+
+            xPers += (objet.getLargeur() + 100);
+            numberContact++;
+            contact=true;
+
 
         }
 
 
+
+
+    }
+    public void invincible()
+    {
+        if(invincibility>0){contact=false;}
     }
 
-    public void setContactAvant(boolean contactAvant) {
-        this.contactAvant = contactAvant;
+    public double getInvincibility() {
+        return invincibility;
+    }
+
+    public void becomeInvincible()
+   {
+       invincibility=100;
+   }
+
+
+
+
+    public static boolean isPieceContact() {
+        return pieceContact;
+    }
+
+    public int getNumberContactPiece() {
+        return numberContactPiece;
     }
 
     //4
     public boolean contactPiece(Objet objet)
     {
-        if((this.xPers+80)<objet.getX() || this.xPers+80>objet.getX()+objet.getLargeur() || (this.yPers+99)<=objet.getY()+ objet.getHauteur() || this.yPers >= objet.getY()+objet.getHauteur()){return contactPiece=false;}
-        else return contactPiece=true;
+        if((this.xPers+80)<objet.getX() || this.xPers+80>objet.getX()+objet.getLargeur() || (this.yPers+99)<=objet.getY()+ objet.getHauteur() || this.yPers >= objet.getY()+objet.getHauteur()){ pieceContact=true; return false;}
+        else {  return true;}
+
+
     }
 
-    //------------------------------ GETTERS-------------------------------------
-    public boolean isContactPiece() {
-        return contactPiece;
+
+    public void addContactpiece(Objet objet) {
+        double x=0;
+        x=(xPers+80)/ objet.getX();
+        //
+        //System.out.println(x);
+        if (x==1) {
+            numberContactPiece++;
+        }
     }
+
+    public boolean isContactAvant() {
+        return contact;
+    }
+
+//------------------------------ GETTERS-------------------------------------
+
 
     public int getNumberContact() {
         return numberContact;
     }
 
-    public double getVy() {
-        return vy;
-    }
-
-
-
-
-
-
-
-
 
 }
+

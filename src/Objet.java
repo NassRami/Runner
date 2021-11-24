@@ -5,20 +5,27 @@ import javafx.scene.image.ImageView;
 public class Objet {
 
     private int largeur,hauteur;
-    private int x,y;
+    private double x,y;
 
 
+
+    public Image image;
     public ImageView animatedObjet;
 
 
+    public Image getImage() {
+        return image;
+    }
+
     //constructeur
-    public Objet (int x,int y,int largeur,int hauteur,String filename)
+    public Objet (double x,double y,int largeur,int hauteur,String filename)
     {
         this.x=x;
         this.y=y;
         this.largeur=largeur;
         this.hauteur=hauteur;
-        animatedObjet=new ImageView(new Image(filename));
+        this.image=new Image(filename);
+        animatedObjet=new ImageView(image);
         animatedObjet.setViewport(new Rectangle2D(0,0,largeur,hauteur));
 
 
@@ -41,9 +48,13 @@ public class Objet {
 
     public int getHauteur() { return hauteur;}
 
-    public int getX() {return x;}
+    public double getX() {
+        return x;
+    }
 
-    public int getY() {return y;}
+    public double getY() {
+        return y;
+    }
 
     public void update(double offset, Heros heros){
         animatedObjet.setX(x-heros.getX());
